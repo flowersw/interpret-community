@@ -131,7 +131,10 @@ class ExplanationDashboard:
 
             @app.route('/')
             def hello():
-                return "No global list view supported at this time."
+                if ExplanationDashboard.explanations:
+                    return jsonify(url_for('explanation_visual', id) for id in ExplanationDashboard.explanations)
+                else:
+                    return "No explanations have been generated yet"
 
             @app.route('/<id>')
             def explanation_visual(id):
